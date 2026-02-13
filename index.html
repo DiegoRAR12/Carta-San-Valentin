@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestra historia 💌</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="bg-glow"></div>
+
+  <main class="wrap">
+    <header class="top">
+      <button class="music-btn" id="musicBtn" aria-label="Música">▶ Música</button>
+      <audio id="bgMusic" src="assets/audio/Química Mayor.mp3" preload="auto" loop></audio>
+
+      <div class="badge">Jeliz 14 de febrero miamor</div>
+      <h1>Nosotros patosos</h1>
+      <p class="subtitle">Una carta digital, con recuerdos y magia.</p>
+    </header>
+
+    <section class="book" aria-label="Libro" style="--back:url('assets/img/foto24.jpeg')">
+
+      <!-- Página 0 (portada full foto) -->
+      <div class="page active" data-page="0">
+        <div class="page-inner cover-page">
+          <img src="assets/img/foto7.jpeg" class="cover-full" alt="Portada">
+
+          <div class="cover-overlay">
+            <h2>Para ti ❤️</h2>
+            <p>
+              Esta vez hice algo diferente, algo que dure por siempre.
+              Espero que te guste tanto como a mí me gustas tú.
+            </p>
+            <button class="btn" id="startBtn">Abrir el libro</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página 1 -->
+      <div class="page" data-page="1">
+        <div class="page-inner">
+          <div class="month-title">Holiiiiiiiis</div>
+
+          <div class="photo-frame landscape pos-center">
+            <img src="assets/img/foto16.jpeg" alt="Página 1" />
+          </div>
+
+          <div class="pop-card">
+            <h3>¿Cómo estás, mi amor?</h3>
+            <p class="typewriter">
+              Hola, ¿cómo estás? Quería hacer algo especial, algo que fuera solo para ti y que no se encontrara en otro lado.
+              No se me ocurrió mucho, así que hice esto. Ojalá te guste mucho y disfrutes tu pequeño regalito, y que te
+              recuerde cuánto te amo, que eres mi adoración y que disfrutes este día tan lindo para celebrar nuestra unión.
+            </p>
+          </div>
+
+          <div class="controls">
+            <button class="btn ghost" data-action="prev">← Atrás</button>
+            <button class="btn" data-action="next">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página 2 -->
+      <div class="page" data-page="2">
+        <div class="page-inner">
+          <div class="month-title">Nuestra historia</div>
+
+          <div class="photo-frame landscape pos-top">
+            <img src="assets/img/foto21.jpeg" alt="Página 2" />
+          </div>
+
+          <div class="pop-card rainbow">
+            <h3>Primeras salidas</h3>
+            <p>
+              Todo comenzó de una manera curiosa: simples conocidos que querían pasar el tiempo con alguien más.
+              Poco a poco fuimos viéndonos diferente, queriéndonos diferente, sin saber que terminaría siendo una
+              de las mejores decisiones de nuestra vida.
+            </p>
+          </div>
+
+          <div class="controls">
+            <button class="btn ghost" data-action="prev">← Atrás</button>
+            <button class="btn" data-action="next">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página 3 (Comidas) + LENGÜETA LATERAL CORRECTA -->
+      <div class="page" data-page="3">
+        <div class="page-inner">
+          <div class="month-title">Comidas</div>
+
+          <!-- FOTO + LENGÜETA LATERAL (UNA SOLA FOTO, SIN DUPLICADOS) -->
+          <div class="photo-slide" data-photo-slide>
+            <div class="slide-panel">
+              <div class="slide-card">
+                <h4>Nota secreta 🍓</h4>
+                <p>
+                  Me encanta que cualquier plan contigo se vuelve mi plan favorito.
+                  Y sí: comer contigo es mi religión.
+                </p>
+              </div>
+            </div>
+
+            <div class="photo-frame landscape pos-center">
+              <img src="assets/img/foto18.jpeg" alt="Página 3" />
+            </div>
+
+            <div class="slide-handle">Jala ➜</div>
+          </div>
+
+          <div class="pop-card food">
+            <h3>Nuestro sello</h3>
+            <p>
+              Si algo hemos hecho desde que comenzamos a salir es comer. Siempre salimos a comer, a pasear, a platicar
+              o a ver series, pero indiscutiblemente tenemos que comer. Nuestra fascinación por la comida quizá sea
+              preocupante, pero hay algo seguro: estando contigo, toda comida sabe fantástica, el chisme es mejor y las
+              risas se sienten como una caricia de nube.
+            </p>
+          </div>
+
+          <div class="controls">
+            <button class="btn ghost" data-action="prev">← Atrás</button>
+            <button class="btn" data-action="next">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página 4 -->
+      <div class="page" data-page="4">
+        <div class="page-inner">
+          <div class="month-title">Pepe</div>
+
+          <div class="photo-frame landscape pos-center">
+            <img src="assets/img/foto11.jpeg" alt="Página 4" />
+          </div>
+
+          <div class="pop-card fireworks">
+            <h3>El niño desnucado</h3>
+            <p>
+              Sin duda, un gran símbolo de nuestro amor es nuestro hermoso Pepe. Representa lo mucho que nos queremos
+              y lo lindo que es que estemos juntos. El hecho de que cuidemos tanto a Pepe —aunque a veces olvidemos
+              bañarlo— es un recordatorio de lo mucho que nos cuidamos y queremos.
+            </p>
+          </div>
+
+          <div class="controls">
+            <button class="btn ghost" data-action="prev">← Atrás</button>
+            <button class="btn" data-action="next">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página 5 -->
+      <div class="page" data-page="5">
+        <div class="page-inner">
+          <div class="month-title">Bella</div>
+
+            <div class="photo-slide bella-slide" data-photo-slide>
+            <!-- FOTO PRINCIPAL -->
+            <div class="photo-frame portrait fit-contain">
+                <img src="assets/img/foto9.jpeg" alt="Página 5" />
+            </div>
+
+            <!-- 4 PANELES INDEPENDIENTES (se abren todos con la misma lengüeta) -->
+            <div class="bella-panels" aria-hidden="true">
+                <!-- Panel 1: texto -->
+                <div class="bella-panel bp-text">
+                <div class="bella-card bella-text">
+                    <h4>Eres hermosa</h4>
+                    <p>Y lo digo con el alma: eres arte, eres magia, eres mi vida. 💗</p>
+                </div>
+                </div>
+
+                <!-- Panel 2: foto -->
+                <div class="bella-panel bp-p1">
+                <div class="bella-card bella-pic">
+                    <img src="assets/img/foto15.jpeg" alt="Bella extra 1">
+                </div>
+                </div>
+
+                <!-- Panel 3: foto -->
+                <div class="bella-panel bp-p2">
+                <div class="bella-card bella-pic">
+                    <img src="assets/img/foto10.jpeg" alt="Bella extra 2">
+                </div>
+                </div>
+
+                <!-- Panel 4: foto -->
+                <div class="bella-panel bp-p3">
+                <div class="bella-card bella-pic">
+                    <img src="assets/img/foto20.jpeg" alt="Bella extra 3">
+                </div>
+                </div>
+            </div>
+
+            <!-- LENGÜETA ÚNICA -->
+            <div class="slide-handle bella-handle">Jala ➜</div>
+            </div>
+
+          <div class="pop-card hearts">
+            <h3>Mi vida preciosa</h3>
+            <p>
+              Cada vez que te veo, algo grita dentro de mí. Estoy profundamente enamorado de ti: de tu belleza, de tu
+              carisma, de tus ojos, de tu sonrisa, de tu cabello, de todo lo que eres. Todo lo que representa tu esencia
+              me parece maravilloso y de lo más perfecto que existe. Eres un ser hermoso, algo que está fuera de este mundo.
+            </p>
+          </div>
+
+          <div class="controls">
+            <button class="btn ghost" data-action="prev">← Atrás</button>
+            <button class="btn" data-action="next">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página 6 -->
+      <div class="page" data-page="6">
+        <div class="page-inner">
+          <div class="month-title">El comienzo</div>
+
+          <div class="photo-frame landscape pos-top">
+            <img src="assets/img/foto23.jpeg" alt="Página 6" />
+          </div>
+
+          <div class="pop-card heartbeat">
+            <h3>Sigamos creciendo</h3>
+            <p>
+              Algo que tengo muy claro es que esto no es más que el comienzo. Aún nos queda muchísimo por vivir y compartir.
+              Desde el fondo de mi corazón te prometo que, de aquí en adelante, me esforzaré por pasar cada día a tu lado,
+              por compartir experiencias, apoyarte en todo momento y ser para ti lo que necesites. No quiero otra cosa más
+              que estar a tu lado cada día de mi vida. Te amo demasiado, eres lo mejor que me ha pasado.
+            </p>
+          </div>
+
+          <div class="controls">
+            <button class="btn ghost" data-action="prev">← Atrás</button>
+            <button class="btn" data-action="next">Siguiente →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Página 7 (final) -->
+      <div class="page" data-page="7">
+        <div class="page-inner">
+          <h2>Final (por ahora)</h2>
+          <p class="text">
+            Gracias por estos meses. Lo mejor de mi vida es que estás en ella.
+          </p>
+
+          <button class="btn" id="confettiBtn">Sorpresa ✨</button>
+
+          <div class="controls">
+            <button class="btn ghost" data-action="prev">← Atrás</button>
+            <button class="btn" id="restartBtn">Volver al inicio</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <canvas id="confetti"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>

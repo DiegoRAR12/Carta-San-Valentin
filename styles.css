@@ -1,0 +1,611 @@
+:root{
+  --bg1:#ffe6ee;
+  --bg2:#fff7fb;
+  --ink:#2a1b1f;
+  --pink:#ff4d8d;
+  --shadow: 0 18px 50px rgba(0,0,0,.18);
+  --radius: 18px;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  color:var(--ink);
+  min-height:100vh;
+  background: radial-gradient(1200px 600px at 20% 20%, var(--bg2), var(--bg1));
+  overflow:hidden;
+}
+
+/* brillo de fondo */
+.bg-glow{
+  position:fixed;
+  inset:-40%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,77,141,.25), transparent 55%),
+    radial-gradient(circle at 70% 60%, rgba(255,160,200,.25), transparent 55%);
+  filter: blur(40px);
+  pointer-events:none;
+}
+
+.wrap{
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+  padding:28px 16px;
+}
+
+.top{
+  text-align:center;
+  max-width:720px;
+}
+
+.badge{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background: rgba(255,77,141,.12);
+  border:1px solid rgba(255,77,141,.25);
+  font-weight:600;
+}
+
+h1{
+  margin:10px 0 6px;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: -.02em;
+}
+
+.subtitle{
+  margin:0;
+  opacity:.8;
+}
+
+/* libro */
+.book{
+  width:min(420px, 92vw);
+  height: 680px;
+  position:relative;
+  perspective: 1400px;
+}
+
+/* =========================
+   FLIP BOOK (front + back)
+   ========================= */
+
+.page{
+  display:block;
+  position:absolute;
+  inset:0;
+
+  opacity:0;
+  pointer-events:none;
+
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transform: rotateY(0deg);
+
+  transition: transform 900ms cubic-bezier(.2,.9,.2,1), opacity 250ms ease;
+}
+
+/* Reverso: imagen (cara trasera) */
+.page::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+
+  background-image: var(--back, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+/* Frente */
+.page .page-inner{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(255,255,255,.6);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  gap: 14px;
+
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+
+  overflow:visible; /* el scroll vive dentro de .pop-card */
+  animation: popIn .35s ease both;
+}
+
+@keyframes popIn{
+  from{ transform: translateY(10px) scale(.98); opacity:0; }
+  to{ transform: translateY(0) scale(1); opacity:1; }
+}
+
+.page.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.page.turned{
+  opacity:1;
+  pointer-events:none;
+  transform: rotateY(-180deg);
+}
+
+.page.flipping{
+  opacity:1;
+  pointer-events:none;
+}
+
+/* textos */
+.text{
+  font-size:18px;
+  line-height:1.55;
+  opacity:.9;
+}
+
+.month-title{
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity:.65;
+}
+
+/* botones */
+.controls{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:auto;
+}
+
+.btn{
+  border:none;
+  background: var(--pink);
+  color:white;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor:pointer;
+  box-shadow: 0 14px 30px rgba(255,77,141,.28);
+  transition: transform .12s ease, filter .12s ease;
+}
+.btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+.btn:active{ transform: translateY(0); }
+
+.btn.ghost{
+  background: rgba(255,77,141,.12);
+  color: var(--pink);
+  box-shadow:none;
+  border:1px solid rgba(255,77,141,.25);
+}
+
+/* foto */
+.photo-frame{
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  margin-top: 6px;
+  background: rgba(255,255,255,.55);
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 14px 36px rgba(0,0,0,.10);
+}
+
+.photo-frame.landscape{ height: 300px; }
+.photo-frame.portrait{ height: 430px; }
+
+@media (max-width: 420px){
+  .book{ height: 620px; }
+  .photo-frame.landscape{ height: 260px; }
+  .photo-frame.portrait{ height: 380px; }
+}
+
+.photo-frame img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.pos-top img    { object-position: center 18%; }
+.pos-center img { object-position: center 50%; }
+
+.fit-contain img{
+  object-fit: contain;
+  background: rgba(255,255,255,.35);
+}
+
+/* tarjetas */
+.pop-card{
+  background: rgba(255,255,255,.9);
+  border:1px solid rgba(0,0,0,.06);
+  border-radius: 16px;
+  padding: 14px 14px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.10);
+
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+
+.pop-card::-webkit-scrollbar{ width: 10px; }
+.pop-card::-webkit-scrollbar-thumb{
+  background: rgba(255,77,141,.25);
+  border-radius: 999px;
+}
+.pop-card::-webkit-scrollbar-track{ background: transparent; }
+
+.pop-card h3{ margin: 2px 0 8px; }
+.pop-card p{ margin: 0; line-height: 1.55; opacity: .92; }
+
+/* ====== Efectos ====== */
+
+/* Máquina de escribir */
+.typewriter{ white-space: pre-wrap; }
+.typewriter-caret::after{
+  content: "▍";
+  display:inline-block;
+  margin-left: 2px;
+  opacity: .85;
+  animation: caretBlink 800ms steps(1) infinite;
+}
+@keyframes caretBlink{ 50%{ opacity:0; } }
+
+/* Arcoíris */
+.pop-card.rainbow{ position:relative; }
+.pop-card.rainbow::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: linear-gradient(90deg,#ff4d8d,#ffb703,#06d6a0,#4d96ff,#b517ff,#ff4d8d);
+  background-size: 400% 100%;
+  animation: rainbowMove 4s linear infinite;
+  opacity:.22;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes rainbowMove{ 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
+.pop-card.rainbow > *{ position:relative; z-index:1; }
+
+/* Comida */
+.pop-card.food{ position:relative; }
+.pop-card.food::after{
+  content:"🍓 🍜 🍕 🥐 🍟 🍔";
+  position:absolute;
+  left: 12px;
+  bottom: -10px;
+  font-size: 18px;
+  opacity:.30;
+  animation: foodFloat 6s ease-in-out infinite;
+  pointer-events:none;
+  white-space: nowrap;
+  z-index:0;
+}
+@keyframes foodFloat{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+.pop-card.food > *{ position:relative; z-index:1; }
+
+/* Corazones */
+.pop-card.hearts{ position:relative; }
+.pop-card.hearts::before{
+  content:"💗";
+  position:absolute;
+  right: 14px;
+  bottom: 10px;
+  font-size: 22px;
+  opacity:.35;
+  animation: heartFloat 2.8s ease-in-out infinite;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes heartFloat{
+  0%,100%{ transform: translateY(0) scale(1); }
+  50%{ transform: translateY(-10px) scale(1.06); }
+}
+.pop-card.hearts > *{ position:relative; z-index:1; }
+
+/* Latido */
+.pop-card.heartbeat h3{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.pop-card.heartbeat h3::after{
+  content:"💓";
+  display:inline-block;
+  transform-origin:center;
+  animation: beat 900ms ease-in-out infinite;
+}
+@keyframes beat{
+  0%,100%{ transform: scale(1); }
+  45%{ transform: scale(1.25); }
+  70%{ transform: scale(1.05); }
+}
+
+/* confetti canvas */
+#confetti{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:3;
+}
+
+/* ===== PORTADA FULL FOTO ===== */
+.cover-page{
+  padding:0 !important;
+  position:relative;
+  overflow:hidden;
+}
+.cover-full{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.cover-overlay{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap:12px;
+  padding:24px;
+  background: linear-gradient(to top,
+    rgba(0,0,0,.45),
+    rgba(0,0,0,.05) 50%,
+    transparent
+  );
+  color:white;
+}
+
+/* música */
+.music-btn{
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 99999;
+  border: 1px solid rgba(255,255,255,.45);
+  background: rgba(255,255,255,.35);
+  backdrop-filter: blur(10px);
+  color: var(--ink);
+  padding: 10px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 800;
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+}
+.music-btn.playing{
+  background: rgba(255,77,141,.18);
+  border-color: rgba(255,77,141,.25);
+}
+
+/* =========================
+   LENGÜETA LATERAL (sale hacia AFUERA, lado derecho)
+   ========================= */
+
+.photo-slide{
+  position: relative;
+  width: 100%;
+  /* espacio extra a la derecha para que quepa el panel */
+  padding-right: 0px;
+}
+
+/* Panel oculto (sale hacia afuera a la derecha) */
+.slide-panel{
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 100%;
+  margin-left: 10px;
+
+  width: 0;
+  overflow: hidden;
+  z-index: 2;
+  transition: width 420ms cubic-bezier(.2,.9,.2,1);
+}
+
+.slide-card{
+  width: 240px;
+  height: 100%;
+  background: rgba(255,255,255,.95);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 14px 30px rgba(0,0,0,.15);
+}
+
+/* Lengüeta del lado derecho */
+.slide-handle{
+  position: absolute;
+  top: 50%;
+  right: -38px;              /* fuera del marco */
+  left: auto;
+  transform: translateY(-50%);
+  padding: 10px 12px;
+  background: rgba(255,77,141,.25);
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: grab;
+  z-index: 5;
+  user-select: none;
+}
+
+/* Abierto */
+.slide-panel{
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+
+  left: 100%;
+  margin-left: 12px;
+
+  width: 0;
+  overflow: hidden;
+  z-index: 40;
+  transition: width 420ms cubic-bezier(.2,.9,.2,1);
+}
+
+.photo-slide.open .slide-panel{
+  width: 260px;
+}
+
+
+/* En pantallas chicas, reduce el panel para que no se salga feo */
+@media (max-width: 420px){
+  .slide-handle{ right: -26px; }
+  .photo-slide.open .slide-panel{ width: 210px; }
+  .slide-card{ width: 200px; }
+}
+
+/* =========================
+   BELLA: 1 lengüeta -> 4 paneles independientes
+   ========================= */
+
+/* La lengüeta se sale al rosa */
+.bella-handle{
+  right: -38px;
+  left: auto;
+  z-index: 60;
+}
+
+/* Los paneles están flotando (no empujan layout) */
+.bella-slide{
+  position: relative;
+}
+
+/* Contenedor de paneles (no ocupa espacio) */
+.bella-panels{
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* para no estorbar scroll/controles */
+}
+
+/* Panel base (cada uno independiente) */
+.bella-panel{
+  position: absolute;
+  opacity: 0;
+  transform: translateX(0) translateY(0) scale(.96);
+  transition: transform 520ms cubic-bezier(.2,.9,.2,1), opacity 260ms ease;
+}
+
+/* Tarjetas */
+.bella-card{
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,.06);
+  background: rgba(255,255,255,.95);
+  box-shadow: 0 16px 40px rgba(0,0,0,.18);
+}
+
+.bella-pic img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+.bella-text{
+  padding: 12px;
+}
+.bella-text h4{ margin: 0 0 6px; }
+.bella-text p{ margin: 0; opacity: .9; line-height: 1.35; }
+
+/* ===== Posiciones (afuera del cuadro) + direcciones de salida ===== */
+/* Texto: sale hacia la derecha (afuera) */
+.bp-text{
+  left: 100%;
+  top: 8%;
+  margin-left: 12px;
+}
+.bp-text .bella-card{
+  width: 240px;
+  height: 120px;
+}
+.bella-slide .bp-text{
+  transform: translateX(50px) scale(.96);
+}
+
+/* Foto 1: sale hacia arriba-derecha */
+.bp-p1{
+  left: 100%;
+  top: 48%;
+  margin-left: 12px;
+}
+.bp-p1 .bella-card{
+  width: 150px;
+  height: 150px;
+}
+.bella-slide .bp-p1{
+  transform: translateX(60px) translateY(-40px) scale(.94) rotate(-2deg);
+}
+
+/* Foto 2: sale hacia derecha-centro */
+.bp-p2{
+  left: 100%;
+  top: 66%;
+  margin-left: 170px; /* se separa más para que no se encimen */
+}
+.bp-p2 .bella-card{
+  width: 140px;
+  height: 140px;
+}
+.bella-slide .bp-p2{
+  transform: translateX(50px) scale(.94) rotate(2deg);
+}
+
+/* Foto 3: sale hacia abajo-derecha */
+.bp-p3{
+  left: 100%;
+  top: 82%;
+  margin-left: 40px;
+}
+.bp-p3 .bella-card{
+  width: 160px;
+  height: 120px;
+}
+.bella-slide .bp-p3{
+  transform: translateX(50px) translateY(40px) scale(.94) rotate(-1deg);
+}
+
+/* ===== Cuando abres la lengüeta (open), aparecen los 4 ===== */
+.bella-slide.open .bella-panel{
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+/* Móvil: paneles más pequeños para no salirse de pantalla */
+@media (max-width: 420px){
+  .bella-handle{ right: -26px; }
+
+  .bp-text .bella-card{ width: 200px; height: 120px; }
+  .bp-p1 .bella-card{ width: 125px; height: 125px; }
+  .bp-p2 .bella-card{ width: 120px; height: 120px; }
+  .bp-p3 .bella-card{ width: 130px; height: 110px; }
+
+  .bp-p2{ margin-left: 135px; }
+}
+
+
+
